@@ -37,18 +37,19 @@ function Map() {
         const container = document.getElementById('map');
         const options = {
             center: new kakao.maps.LatLng(latitude, longitude),
-            level: 3
+            level: 3,
         };
+
         const map = new kakao.maps.Map(container!, options);
-        return map;
+
+        const marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(latitude, longitude),
+        });
+        marker.setMap(map);
     }
 
     return (
-        <div>
-            <div id="map" />
-            <span>lat: {position.latitude}</span>
-            <span>lng: {position.longitude}</span>
-        </div>
+        <div id="map" />
     );
 }
 
