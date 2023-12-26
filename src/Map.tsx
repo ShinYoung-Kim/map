@@ -32,7 +32,6 @@ function Map() {
 
     useEffect(() => {
         initWebView();
-        loadMap();
     }, [])
 
     return (
