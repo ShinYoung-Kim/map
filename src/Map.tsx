@@ -3,9 +3,10 @@ import { useEffect } from "react";
 const { kakao } = window;
 
 function Map() {
+    const defaultPosition = { latitude: 37.506502, longitude: 127.053617 };
+
     function initWebView() {
         const listener = (event: MessageEvent) => {
-            // const position = JSON.parse(event.data);
             if (event.origin !== 'app') {
                 return;
             }
@@ -23,7 +24,6 @@ function Map() {
         const container = document.getElementById('map');
         const options = {
             center: new kakao.maps.LatLng(latitude, longitude),
-            // center: new kakao.maps.LatLng(37.506502, 127.053617),
             level: 3
         };
         const map = new kakao.maps.Map(container!, options);
@@ -31,6 +31,7 @@ function Map() {
     }
 
     useEffect(() => {
+        loadMap(defaultPosition);
         initWebView();
     }, [])
 
