@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const { kakao } = window;
 
 function Map() {
-    const defaultPosition = { latitude: 37.506502, longitude: 127.053617 };
+    const [position, setPosition] = useState({ latitude: 37.5665, longitude: 126.9780 });
 
     function initWebView() {
         const listener = (event: MessageEvent) => {
@@ -14,6 +14,7 @@ function Map() {
             const position = event.data;
             console.log('in');
             console.log(position);
+            setPosition(position);
             loadMap(position);
         }
 
@@ -31,12 +32,16 @@ function Map() {
     }
 
     useEffect(() => {
-        loadMap(defaultPosition);
+        loadMap(position);
         initWebView();
     }, [])
 
     return (
-        <div id="map" />
+        <div>
+            <div id="map" />
+            <span>lat: {position.latitude}</span>
+            <span>lng: {position.longitude}</span>
+        </div>
     );
 }
 
