@@ -8,12 +8,11 @@ function Map() {
     function initWebView() {
         const listener = (event: MessageEvent) => {
             if (event.origin !== 'app') {
+                setPosition({ latitude: 0, longitude: 0 });
                 return;
             }
 
             const position = event.data;
-            console.log('in');
-            console.log(position);
             setPosition(position);
             loadMap(position);
         }
