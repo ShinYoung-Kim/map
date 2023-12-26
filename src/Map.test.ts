@@ -1,5 +1,5 @@
 import Map from "./Map";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { renderHook } from "@testing-library/react";
 
 describe("Map 컴포넌트 테스트", () => {
