@@ -5,20 +5,27 @@ const { kakao } = window;
 function Map() {
     const [position, setPosition] = useState({ latitude: 37.5665, longitude: 126.9780 });
 
-    function initWebView() {
-        const listener = (event: MessageEvent) => {
-            if (event.origin !== 'app') {
-                setPosition({ latitude: 0, longitude: 0 });
-                return;
+    useEffect(() => {
+        function initWebView() {
+            const listener = (event: MessageEvent) => {
+                if (event.origin !== 'app') {
+                    setPosition({ latitude: 0, longitude: 0 });
+                    return;
+                } else {
+                    setPosition({ latitude: 10, longitude: 10 });
+                }
+
+                const position = event.data;
+                setPosition(position);
+                loadMap(position);
             }
 
-            const position = event.data;
-            setPosition(position);
-            loadMap(position);
+            window.addEventListener('message', listener);
         }
 
-        window.addEventListener('message', listener);
-    }
+        loadMap(position);
+        initWebView();
+    }, [])
 
     function loadMap({ latitude, longitude }: { latitude: number, longitude: number }) {
         const container = document.getElementById('map');
@@ -29,11 +36,6 @@ function Map() {
         const map = new kakao.maps.Map(container!, options);
         return map;
     }
-
-    useEffect(() => {
-        loadMap(position);
-        initWebView();
-    }, [])
 
     return (
         <div>
