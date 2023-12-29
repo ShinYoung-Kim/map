@@ -10,3 +10,12 @@ export const saveBookmark = (position: kakao.maps.LatLng) => {
 	window.ReactNativeWebView.postMessage(JSON.stringify(message));
 	document.ReactNativeWebView.postMessage(JSON.stringify(message));
 };
+
+export const getBookmark = () => {
+	const message = {
+		type: "getBookmark",
+	};
+
+	window.ReactNativeWebView.postMessage(JSON.stringify(message));
+	document.ReactNativeWebView.postMessage(JSON.stringify(message));
+};
