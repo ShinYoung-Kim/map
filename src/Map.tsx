@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import BookmarkButton from "./component/BookmarkButton";
 import SaveButton from "./component/SaveButton";
+import { saveBookmark } from "./utility/communication";
 
 const { kakao } = window;
 
@@ -68,14 +69,23 @@ function Map() {
             }
 
             markerRef.current.setPosition(latlng);
+            console.log(markerRef.current.getPosition());
         });
+    }
+
+    const handleSave = () => {
+        const position = markerRef.current?.getPosition();
+        if (!position) {
+            return;
+        }
+        saveBookmark(position);
     }
 
     return (
         <div>
             <div id="map" />
             <BookmarkButton />
-            <SaveButton />
+            <SaveButton handleSave={handleSave} />
         </div>
     );
 }
